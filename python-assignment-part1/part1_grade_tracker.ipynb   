@@ -1,0 +1,540 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/sreekruthy/python-assignment-part-1_bitsom_ba_2511592/blob/main/python-assignment-part1/part1_grade_tracker.ipynb%20%20%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Part 1: Python Basics & Control Flow"
+      ],
+      "metadata": {
+        "id": "VdOgne0u9nPm"
+      },
+      "id": "VdOgne0u9nPm"
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Task 1 — Data Parsing & Profile Cleaning"
+      ],
+      "metadata": {
+        "id": "BdVd65LR9n-d"
+      },
+      "id": "BdVd65LR9n-d"
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#raw data\n",
+        "raw_students = [\n",
+        "    {\"name\": \"  ayesha SHARMA  \", \"roll\": \"101\", \"marks_str\": \"88, 72, 95, 60, 78\"},\n",
+        "    {\"name\": \"ROHIT verma\",       \"roll\": \"102\", \"marks_str\": \"55, 68, 49, 72, 61\"},\n",
+        "    {\"name\": \"  Priya Nair  \",    \"roll\": \"103\", \"marks_str\": \"91, 85, 88, 94, 79\"},\n",
+        "    {\"name\": \"karan MEHTA\",       \"roll\": \"104\", \"marks_str\": \"40, 55, 38, 62, 50\"},\n",
+        "    {\"name\": \" Sneha pillai \",    \"roll\": \"105\", \"marks_str\": \"75, 80, 70, 68, 85\"},\n",
+        "]\n"
+      ],
+      "metadata": {
+        "id": "hpmuxOAJ92Kw"
+      },
+      "id": "hpmuxOAJ92Kw",
+      "execution_count": 60,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#loop through raw_students to get cleaned version\n",
+        "for student in raw_students:\n",
+        "    name = student[\"name\"].strip().title() #strip() removes whitespace and title() converts name to Title case\n",
+        "    roll = int(student[\"roll\"]) #converts roll numbers from string to int datatype\n",
+        "    marks = list(map(int, student[\"marks_str\"].split(\", \"))) #splits marks with , and convert each number to integer\n",
+        "\n",
+        "    #validate name - check if name contains only alphabetic characters\n",
+        "    is_valid = all(word.isalpha() for word in name.split()) #isalpha() is used to check if the word has all characters\n",
+        "\n",
+        "    if is_valid:\n",
+        "        print(\"✓ Valid name\")\n",
+        "    else:\n",
+        "        print(\"✗ Invalid name\")\n"
+      ],
+      "metadata": {
+        "id": "_iuK3Gfa95Ei",
+        "outputId": "d1aab5d7-2e65-4f32-82a2-a99adc52a87f",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "_iuK3Gfa95Ei",
+      "execution_count": 61,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "✓ Valid name\n",
+            "✓ Valid name\n",
+            "✓ Valid name\n",
+            "✓ Valid name\n",
+            "✓ Valid name\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#print formatted profile card for each student with fstrings\n",
+        "for student in raw_students:\n",
+        "  name = student[\"name\"].strip().title() #strip() removes whitespace and title() converts name to Title case\n",
+        "  roll = int(student[\"roll\"]) #converts roll numbers from string to int datatype\n",
+        "  marks = list(map(int, student[\"marks_str\"].split(\", \"))) #splits marks with , and convert each number to integer\n",
+        "\n",
+        "  #profile card\n",
+        "  print(\"=\"*32)\n",
+        "  print(f\"Student : {name}\")\n",
+        "  print(f\"Roll No : {roll}\")\n",
+        "  print(f\"Marks   : {marks}\")\n",
+        "  print(\"=\"*32)"
+      ],
+      "metadata": {
+        "id": "QQI0M9Yj966P",
+        "outputId": "4cffbdd0-6b80-40fb-c816-410e27b8c4bf",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "QQI0M9Yj966P",
+      "execution_count": 62,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "================================\n",
+            "Student : Ayesha Sharma\n",
+            "Roll No : 101\n",
+            "Marks   : [88, 72, 95, 60, 78]\n",
+            "================================\n",
+            "================================\n",
+            "Student : Rohit Verma\n",
+            "Roll No : 102\n",
+            "Marks   : [55, 68, 49, 72, 61]\n",
+            "================================\n",
+            "================================\n",
+            "Student : Priya Nair\n",
+            "Roll No : 103\n",
+            "Marks   : [91, 85, 88, 94, 79]\n",
+            "================================\n",
+            "================================\n",
+            "Student : Karan Mehta\n",
+            "Roll No : 104\n",
+            "Marks   : [40, 55, 38, 62, 50]\n",
+            "================================\n",
+            "================================\n",
+            "Student : Sneha Pillai\n",
+            "Roll No : 105\n",
+            "Marks   : [75, 80, 70, 68, 85]\n",
+            "================================\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#print the name in ALL CAPS and lowercase for the student with roll number 103\n",
+        "for student in raw_students:\n",
+        "  name = student[\"name\"].strip().title() #strip() removes whitespace and title() converts name to Title case\n",
+        "  roll = int(student[\"roll\"]) #converts roll numbers from string to int datatype\n",
+        "\n",
+        "  if roll == 103:\n",
+        "      print(name.upper())\n",
+        "      print(name.lower())"
+      ],
+      "metadata": {
+        "id": "eBJSH-KD9-f2",
+        "outputId": "2771b96c-bc81-4ee0-bc7d-1d49f01a6f09",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "eBJSH-KD9-f2",
+      "execution_count": 63,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "PRIYA NAIR\n",
+            "priya nair\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Task 2 — Marks Analysis Using Loops & Conditionals"
+      ],
+      "metadata": {
+        "id": "V_6IXC1r9_Cv"
+      },
+      "id": "V_6IXC1r9_Cv"
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#given data\n",
+        "student_name = \"Ayesha Sharma\"\n",
+        "subjects     = [\"Math\", \"Physics\", \"CS\", \"English\", \"Chemistry\"]\n",
+        "marks        = [88, 72, 95, 60, 78]"
+      ],
+      "metadata": {
+        "id": "C-JmPT2q-Dlc"
+      },
+      "id": "C-JmPT2q-Dlc",
+      "execution_count": 64,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#print each subject alongside its marks and a grade label\n",
+        "for i in range(len(subjects)):\n",
+        "    subject = subjects[i]\n",
+        "    mark = marks[i]\n",
+        "\n",
+        "    if mark >= 90:\n",
+        "        grade = \"A+\"\n",
+        "    elif mark >= 80:\n",
+        "        grade = \"A\"\n",
+        "    elif mark >= 70:\n",
+        "        grade = \"B\"\n",
+        "    elif mark >= 60:\n",
+        "        grade = \"C\"\n",
+        "    else:\n",
+        "        grade = \"F\"\n",
+        "\n",
+        "    print(f\"{subject}: {mark} - {grade}\")\n",
+        "\n",
+        "#calculate total and average marks\n",
+        "total = sum(marks)\n",
+        "avg = round(total / len(marks), 2)\n",
+        "\n",
+        "print(\"\\nTotal marks:\", total)\n",
+        "print(\"Average marks:\", avg)\n",
+        "\n",
+        "#highest and lowest scoring subject\n",
+        "max_mark = max(marks)\n",
+        "min_mark = min(marks)\n",
+        "\n",
+        "max_subject = subjects[marks.index(max_mark)]\n",
+        "min_subject = subjects[marks.index(min_mark)]\n",
+        "\n",
+        "print(\"Highest scoring subject:\", max_subject, max_mark)\n",
+        "print(\"Lowest scoring subject:\", min_subject, min_mark)"
+      ],
+      "metadata": {
+        "id": "xRaycUlO-FxW",
+        "outputId": "59edcfc8-cc13-4254-b54e-e245f3843815",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "xRaycUlO-FxW",
+      "execution_count": 65,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Math: 88 - A\n",
+            "Physics: 72 - B\n",
+            "CS: 95 - A+\n",
+            "English: 60 - C\n",
+            "Chemistry: 78 - B\n",
+            "\n",
+            "Total marks: 393\n",
+            "Average marks: 78.6\n",
+            "Highest scoring subject: CS 95\n",
+            "Lowest scoring subject: English 60\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "new_count = 0\n",
+        "\n",
+        "# marks-entry system that allows adding new subjects\n",
+        "while True:\n",
+        "    subject = input(\"Enter subject (or done): \") #ask for subject name\n",
+        "\n",
+        "    if subject.lower() == \"done\":  #stop the loop when the user types done as the subject name\n",
+        "        break\n",
+        "\n",
+        "    mark_input = input(\"Enter marks: \") #ask for marks of that subject\n",
+        "\n",
+        "    #handle invalid marks inputs(non-numeric values, numbers outside 0–100)\n",
+        "    if not mark_input.isdigit():\n",
+        "        print(\"Do not crash\")\n",
+        "        continue\n",
+        "\n",
+        "    mark = int(mark_input) #convert string to int\n",
+        "\n",
+        "    if mark < 0 or mark > 100:\n",
+        "        print(\"Do not add invalid entries to the list. Marks must be between 0 and 100.\")\n",
+        "        continue\n",
+        "\n",
+        "    subjects.append(subject) #add subjects to subjects list\n",
+        "    marks.append(mark) #add marks to marks list\n",
+        "    new_count += 1\n",
+        "\n",
+        "print(\"\\nNew subjects added:\", new_count) #print how many new subjects were added\n",
+        "\n",
+        "new_avg = round(sum(marks) / len(marks), 2)\n",
+        "print(\"Updated average:\", new_avg) #print updated average across all subjects (original + new)"
+      ],
+      "metadata": {
+        "id": "aLsdUwD3-IXa",
+        "outputId": "7761d561-4436-403e-982b-73a9339a92e9",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "aLsdUwD3-IXa",
+      "execution_count": 67,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter subject (or done): ML\n",
+            "Enter marks: 96\n",
+            "Enter subject (or done): AI\n",
+            "Enter marks: abc\n",
+            "Do not crash\n",
+            "Enter subject (or done): French\n",
+            "Enter marks: 205\n",
+            "Do not add invalid entries to the list. Marks must be between 0 and 100.\n",
+            "Enter subject (or done): Software engineering\n",
+            "Enter marks: 42\n",
+            "Enter subject (or done): done\n",
+            "\n",
+            "New subjects added: 2\n",
+            "Updated average: 77.25\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Task 3 — Class Performance Summary"
+      ],
+      "metadata": {
+        "id": "iueZOs3A-Nk7"
+      },
+      "id": "iueZOs3A-Nk7"
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#given data\n",
+        "class_data = [\n",
+        "    (\"Ayesha Sharma\",  [88, 72, 95, 60, 78]),\n",
+        "    (\"Rohit Verma\",    [55, 68, 49, 72, 61]),\n",
+        "    (\"Priya Nair\",     [91, 85, 88, 94, 79]),\n",
+        "    (\"Karan Mehta\",    [40, 55, 38, 62, 50]),\n",
+        "    (\"Sneha Pillai\",   [75, 80, 70, 68, 85]),\n",
+        "]"
+      ],
+      "metadata": {
+        "id": "sgF9aCYF-KrF"
+      },
+      "id": "sgF9aCYF-KrF",
+      "execution_count": 68,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pass_count = 0\n",
+        "fail_count = 0\n",
+        "averages = []\n",
+        "\n",
+        "print(\"Name               | Average | Status\")\n",
+        "print(\"----------------------------------------\")\n",
+        "\n",
+        "for name, marks in class_data:\n",
+        "    avg = round(sum(marks)/len(marks), 2) #compute average for each student\n",
+        "    averages.append(avg)\n",
+        "\n",
+        "    #assign a result status\n",
+        "    if avg >= 60:\n",
+        "        status = \"Pass\"\n",
+        "        pass_count += 1\n",
+        "    else:\n",
+        "        status = \"Fail\"\n",
+        "        fail_count += 1\n",
+        "\n",
+        "    print(f\"{name:<18} | {avg:^7} | {status}\") #print formatted class report\n",
+        "\n",
+        "#calculate no of student who passed and failed\n",
+        "print(\"\\nPassed:\", pass_count,\", Failed:\",fail_count)\n",
+        "\n",
+        "#class topper\n",
+        "top_avg = max(averages)\n",
+        "topper_index = averages.index(top_avg)\n",
+        "topper_name = class_data[topper_index][0]\n",
+        "\n",
+        "print(\"Topper:\", topper_name, top_avg)\n",
+        "\n",
+        "#class average\n",
+        "class_avg = round(sum(averages)/len(averages), 2)\n",
+        "print(\"Class Average:\", class_avg)"
+      ],
+      "metadata": {
+        "id": "YTiKjoBH-PwS",
+        "outputId": "c4ef92fd-cae0-4d36-e28d-5d4b7d15f479",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "YTiKjoBH-PwS",
+      "execution_count": 69,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Name               | Average | Status\n",
+            "----------------------------------------\n",
+            "Ayesha Sharma      |  78.6   | Pass\n",
+            "Rohit Verma        |  61.0   | Pass\n",
+            "Priya Nair         |  87.4   | Pass\n",
+            "Karan Mehta        |  49.0   | Fail\n",
+            "Sneha Pillai       |  75.6   | Pass\n",
+            "\n",
+            "Passed: 4 , Failed: 1\n",
+            "Topper: Priya Nair 87.4\n",
+            "Class Average: 70.32\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Task 4 — String Manipulation Utility"
+      ],
+      "metadata": {
+        "id": "G0KPcfL6-UpA"
+      },
+      "id": "G0KPcfL6-UpA"
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#given data\n",
+        "essay = \"  python is a versatile language. it supports object oriented, functional, and procedural programming. python is widely used in data science and machine learning.  \""
+      ],
+      "metadata": {
+        "id": "R8oQv6qe-RlH"
+      },
+      "id": "R8oQv6qe-RlH",
+      "execution_count": 70,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#strip leading and trailing whitespace from essay and store this as clean_essay\n",
+        "clean_essay = essay.strip()\n",
+        "print(\"Stripped: \", clean_essay)\n",
+        "\n",
+        "#convert clean_essay to Title Case\n",
+        "print(\"\\nTitle Case: \", clean_essay.title())\n",
+        "\n",
+        "#count how many times the word \"python\" appears in clean_essay\n",
+        "count = clean_essay.count(\"python\")\n",
+        "print(\"\\nCount of 'python':\", count)\n",
+        "\n",
+        "#replace every occurrence of \"python\" in clean_essay with \"Python 🐍\"\n",
+        "replaced = clean_essay.replace(\"python\", \"Python 🐍\")\n",
+        "print(\"\\nReplaced: \", replaced)\n",
+        "\n",
+        "#split clean_essay into individual sentences by splitting on \". \"\n",
+        "sentences = clean_essay.split(\". \")\n",
+        "print(\"\\nSentences List: \", sentences)\n",
+        "\n",
+        "#print each sentence on a new line, numbered starting from 1 and add a \".\" at the end of each sentence if it does not already end with one\n",
+        "print(\"\\nNumbered Sentences:\")\n",
+        "for i in range(len(sentences)):\n",
+        "    sentence = sentences[i]\n",
+        "\n",
+        "    if not sentence.endswith(\".\"):\n",
+        "        sentence += \".\"\n",
+        "\n",
+        "    print(f\"{i+1}. {sentence}\")"
+      ],
+      "metadata": {
+        "id": "JnxkRUOa-XJl",
+        "outputId": "5e140297-f230-48d2-9983-7789081dd655",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "id": "JnxkRUOa-XJl",
+      "execution_count": 71,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Stripped:  python is a versatile language. it supports object oriented, functional, and procedural programming. python is widely used in data science and machine learning.\n",
+            "\n",
+            "Title Case:  Python Is A Versatile Language. It Supports Object Oriented, Functional, And Procedural Programming. Python Is Widely Used In Data Science And Machine Learning.\n",
+            "\n",
+            "Count of 'python': 2\n",
+            "\n",
+            "Replaced:  Python 🐍 is a versatile language. it supports object oriented, functional, and procedural programming. Python 🐍 is widely used in data science and machine learning.\n",
+            "\n",
+            "Sentences List:  ['python is a versatile language', 'it supports object oriented, functional, and procedural programming', 'python is widely used in data science and machine learning.']\n",
+            "\n",
+            "Numbered Sentences:\n",
+            "1. python is a versatile language.\n",
+            "2. it supports object oriented, functional, and procedural programming.\n",
+            "3. python is widely used in data science and machine learning.\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "required_libs": [],
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
